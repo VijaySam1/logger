@@ -1,0 +1,56 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:node/recommended"
+    ],
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "rules": {
+      "max-len": [
+        "warn",
+        {
+          "code": 250
+        }
+      ],
+      "comma-dangle": [
+        "warn",
+        "always-multiline"
+      ],
+      "no-extra-boolean-cast": 0,
+      "semi": 1,
+      "indent": [
+        "warn",
+        2
+      ],
+      "@typescript-eslint/no-misused-promises": 0,
+      "@typescript-eslint/no-floating-promises": 0,
+      "node/no-unsupported-features/es-syntax": [
+        "error",
+        {
+          "ignores": [
+            "modules"
+          ]
+        }
+      ],
+      "node/no-missing-import": 1,
+      "node/no-unpublished-import": 0,
+      "@typescript-eslint/naming-convention": "warn"
+    },
+    "settings": {
+      "node": {
+        "tryExtensions": [
+          ".js",
+          ".json",
+          ".node",
+          ".ts"
+        ]
+      }
+    }
+  }

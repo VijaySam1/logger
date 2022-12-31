@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"
+    />
+  </head>
+  <body>
+    <form action="/api/filter" class="d-flex mt-5 mb-5 justify-content-around" method="post">
+        <div>
+    <label>page</label>
+    <input type="number" name="page">
+</div><br>
+<div>
+    <label>limit</label>
+    <input type="number" name="limit">
+</div><br>
+<div>
+    <label>fromdate</label>
+    <input type="date" name="from">
+</div><br>
+<div>
+    <label>todate</label>
+    <input type="date" name="to">
+</div><br>
+<button type="submit">submit</button>
+    </form>
+
+
+
+
+    <%const GenericType= [ "MOTOR", "VALVE", 'USER', "NODE", "PROGRAM", 'GROUP',
+    "DEVICE", 'SETTINGS', ];const LogType= ["ERROR", "WARNING", "INFO",
+    "DEBUG"]; const ActionKey= ["UPDATED_SUCCESSFULLY", "ADDED_SUCCESSFULLY",
+    "DELETED_SUCCESSFULLY"] %>
+    <table id="example" class=" m-5 table table-striped" style="width: 100%">
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>DATE</th>
+          <th>GENERIC TYPE</th>
+          <th>ACTION</th>
+          <th>MESSAGE</th>
+          <th>LOG TYPE</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% let count=1 %> <%for (let user of result.docs){ %>
+        <tr>
+          <td><%=count %></td>
+          <% const date = new Date(user.createdAt).toISOString()%>
+          <td><%=date%></td>
+          <% const gt =GenericType[user.generic_type] %> <% const ak
+          =ActionKey[user.action_key] %> <% const lt =LogType[user.log_type] %>
+
+          <td><%=gt%></td>
+          <td><%=ak%></td>
+          <td><%=user.action_value%></td>
+          <td><%=lt%></td>
+
+          <%count++%>
+        </tr>
+
+        <% } %>
+      </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#example").DataTable();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+export enum ActionKey {
+    UPDATED_SUCCESSFULLY,
+    ADDED_SUCCESSFULLY,
+    DELETED_SUCCESSFULLY,
+}
