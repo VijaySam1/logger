@@ -62,8 +62,8 @@ export const getLogs = (req: Request, res: Response, next: NextFunction) => {
       if (err) {
         next(err);
       } else {
-       //res.status(200).json({ message: "success", data: result });
-      res.render("logs",{result});
+      res.status(200).json({ message: "success", data: result });
+      //res.render("logs",{result});
       }
     });
   } else {
