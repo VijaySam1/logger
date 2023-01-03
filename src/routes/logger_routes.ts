@@ -10,4 +10,10 @@ router.get('/log', getLogs);
 router.post('/log', loggerSchema, validateRequestBody, postLog).all('/log',methodNotFound);
 
 router.post('/filter', filter);
+
+router.get('/get_data');
+
+module.exports = router;
+
+
 export default router;

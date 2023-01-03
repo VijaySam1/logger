@@ -1,93 +1,75 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"
-    />
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-      jQuery.support.cors = true;
-      $(document).ready(function () {
-//         $.ajax({
-//   url: "http://localhost:3000/api/log?from=2022-12-29T03:47:48.541Z&to=2022-12-31T06:33:39.577Z&page=1&limit=10",
-//   method:'GET'
-// }).success()
-$.ajax({
-    url: "http://127.0.0.1:3000/api/log?from=2022-12-29T03:47:48.541Z&to=2022-12-31T06:33:39.577Z&page=1&limit=10",
-    type: "GET",
-    timeout: 30000,
-    dataType: "text", // "xml", "json"
-    success: function(data) {
-        // show text reply as-is (debug)
-        console.log(data);
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-        // show xml field values (debug)
-        //alert( $(data).find("title").text() );
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 
-        // loop JSON array (debug)
-        //var str="";
-        //$.each(data.items, function(i,item) {
-        //  str += item.title + "\n";
-        //});
-        //alert(str);
-    },
-    error: function(jqXHR, textStatus, ex) {
-        console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-    }
-})
-// $.get("http://127.0.0.1:3000/api/log?from=2022-12-29T03:47:48.541Z&to=2022-12-31T06:33:39.577Z&page=1&limit=10",function(data, status){
-  //   console.log("Data: " + data + "\nStatus: " + status);
-  // });
-    //     const baseurl = "http://localhost:3000/api/log?from=2022-12-29T03:47:48.541Z&to=2022-12-31T06:33:39.577Z&page=1&limit=10";
-    //     const http = new XMLHttpRequest();
-    //     http.open("GET", baseurl + "/all", true);
-    //     http.onreadystatechange = function () {
-    //       if (http.readyState == 4 && http.status == 200) {
-    //         const users = json.parse(http.responseText);
-    //         $("#example").DataTable({
-    //           data: users,
-    //         //   columns: [
-    //         //     { data: "generic_type" },
-    //         //     { data: "action_key" },
-    //         //     { data: "action_value" },
-    //         //     { data: "log_type" },
-    //         //     { data: "createdAt" },
-    //         //   ],
-    //         });
-    //       }
-    //     };
-    //     http.send()
-   });
-    </script>
-  </head>
-  <body>
-    <table id="example" class="table table-striped" style="width: 100%">
-        <thead>
-            <tr>
-              <th>generic_type</th>
-              <th>action_key</th>
-              <th>action_value</th>
-              <th>log_type</th>
-              <th>createdAt</th>
-            </tr>
-          </thead>
-         
-    </table>
+        <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+        <title><%= title %></title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center text-primary mt-3 mb-3">jQuery DataTables with Node.js Express & MySQL</h1>
+
+            <div class="card">
+                <div class="card-header">Customer Data</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        
+                        <table id="customer_data" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                  <th>generic_type</th>
+                                  <th>action_key</th>
+                                  <th>action_value</th>
+                                  <th>log_type</th>
+                                  <th>createdAt</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
   </body>
 </html>
+
+<script>
+
+$(document).ready(function(){
+
+    var dataTable = $('#customer_data').DataTable({
+        'processing' : true,
+        'serverSide' : true,
+        'serverMethod' : 'get',
+        'ajax' : {
+            'url' : 'https://cors-anywhere.herokuapp.com/http://localhost:3000/api/log?from=2022-12-29T03:47:48.541Z&to=2022-12-31T06:33:39.577Z&page=1&limit=10'
+        },
+        "headers": {
+                    "X-Requested-With": "XMLHttpRequest",
+                    
+                },
+        'aaSorting' : [],
+        
+    });
+
+});
+
+</script>
+
+

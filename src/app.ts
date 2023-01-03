@@ -9,9 +9,17 @@ import { customErrorHandler, pageNotFound } from "./middleware/errorHandler";
 import path from "path";
 
 app.use(express.json());
-console.log(new Date().toISOString())
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+import cors from 'cors';
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+};
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+app.use(cors(corsOptions));
 
 mongoose.set('strictQuery', false);
 const URL: string = ENV_VARS.db.url;
